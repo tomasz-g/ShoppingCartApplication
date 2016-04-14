@@ -1,6 +1,7 @@
 package shoppingCart;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,13 +12,15 @@ public class Main {
 	private static ArrayList<Product> inventory = new ArrayList<Product>();
 	private static ArrayList<Product> basket = new ArrayList<Product>();
 	private static Scanner input = new Scanner(System.in);
-	static BufferedReader input2 = new BufferedReader(new InputStreamReader(System.in));
+	private static BufferedReader input2 = new BufferedReader(new InputStreamReader(System.in));
 	
 
 	public static void main(String[] args) {
 		menu();
 	}
-	
+
+	/*This is the first method in the program, user chooses if they would like
+	 * to go to the admin menu or if they would like to go shopping*/  
 	private static void menu() {
 		
 		System.out.println("\n \n***************************************************************");
@@ -38,7 +41,11 @@ public class Main {
 			}
 		}
 	}
-	
+
+	/* This is the admin menu, it gives the user 4 different choices, they can 
+	 * add product to add new stock, or print product to see what products are
+	 * already in stock, or delete product to remove a product from stock or
+	 * simply return to the main menu*/
 	private static void adminMenu() {
 		System.out.println("\n \n***************************************************************");
 		System.out.println(" add Product - press 1 \n print Products - press 2");
@@ -69,7 +76,10 @@ public class Main {
 			}
 		}
 	}
-	
+
+	/* After selecting add product the user is brought to this menu, this is where they
+	 * select which item is being added to stock, they select which products to stock or
+	 *return to main*/
 	private static void addProduct() {
 		
 		System.out.println("\n \n***************************************************************");
@@ -107,15 +117,14 @@ public class Main {
 			}
 		}
 	}
-	
+
+	/*this is where you add select the shoe specifications*/
 	private static void addShoes() {
 		
 		Shoe s = new Shoe();
 		System.out.println("\n \n***************************************************************");
-
 		
 		try {
-					
 			System.out.println("Enter brand:");
 			s.setName(input2.readLine());
 			System.out.println("Material Type:");
@@ -127,76 +136,79 @@ public class Main {
 			System.out.println("Enter quantity:");
 			s.setQuantity(input.nextInt());
 			s.setType("shoes");
-			}
+		}
 		
-			catch (IOException e) {
-				System.out.println("Error, WRONG INPUT - please try again");
-				addShoes();
-			}
-		
-		
-		/*
-		System.out.println("\n \n***************************************************************");
-		System.out.println("Enter brand:");
-		s.setName(input.next());
-		System.out.println("Material Type:");
-		s.setMaterial(input.next());
-		System.out.println("Enter size:");
-		s.setSize(input.nextInt());
-		System.out.println("Enter price:");
-		s.setPrice(input.nextDouble());
-		System.out.println("Enter quantity:");
-		s.setQuantity(input.nextInt());
-		s.setType("shoes");
-		System.out.println("***************************************************************");
-		*/
+		catch (InputMismatchException | IOException  e) {
+			System.out.println("Error, WRONG INPUT - please try again");
+			addShoes();
+		}
 		
 		System.out.println("***************************************************************");
 		inventory.add(s);
 	}
-	
+
+	/*this is where you add select the book specifications*/
 	private static void addBook() {
 		
 		Book b = new Book();
-		
 		System.out.println("\n \n***************************************************************");
-		System.out.println("Enter title:");
-		b.setName(input.next());
-		System.out.println("Enter author:");
-		b.setAuthor(input.next());
-		System.out.println("Enter ISBN number:");
-		b.setIsbn(input.nextInt());
-		System.out.println("Enter price:");
-		b.setPrice(input.nextDouble());
-		System.out.println("Enter quantity:");
-		b.setQuantity(input.nextInt());
-		b.setType("book");
+		
+		try {
+			System.out.println("Enter title:");
+			b.setName(input2.readLine());
+			System.out.println("Enter author:");
+			b.setAuthor(input2.readLine());
+			System.out.println("Enter ISBN number:");
+			b.setIsbn(input.nextInt());
+			System.out.println("Enter price:");
+			b.setPrice(input.nextDouble());
+			System.out.println("Enter quantity:");
+			b.setQuantity(input.nextInt());
+			b.setType("book");
+		}
+		
+		catch (InputMismatchException | IOException  e) {
+			System.out.println("Error, WRONG INPUT - please try again");
+			addBook();
+		}
+		
 		System.out.println("***************************************************************");
 		
 		inventory.add(b);
 	}
-	
+
+	/*this is where you add select the DVD specifications*/
 	private static void addDVD() {
 
 		DVD d = new DVD();
-		
 		System.out.println("\n \n***************************************************************");
-		System.out.println("Enter title:");
-		d.setName(input.next());
-		System.out.println("Enter category:");
-		d.setCategory(input.next());
-		System.out.println("Enter language:");
-		d.setLanguage(input.next());
-		System.out.println("Enter price:");
-		d.setPrice(input.nextDouble());
-		System.out.println("Enter quantity:");
-		d.setQuantity(input.nextInt());
-		d.setType("DVD");
+
+		
+		try {
+			System.out.println("Enter title:");
+			d.setName(input2.readLine());
+			System.out.println("Enter category:");
+			d.setCategory(input2.readLine());
+			System.out.println("Enter language:");
+			d.setLanguage(input2.readLine());
+			System.out.println("Enter price:");
+			d.setPrice(input.nextDouble());
+			System.out.println("Enter quantity:");
+			d.setQuantity(input.nextInt());
+			d.setType("DVD");
+		}
+		
+		catch (InputMismatchException | IOException  e) {
+			System.out.println("Error, WRONG INPUT - please try again");
+			addBook();
+		}
+		
 		System.out.println("***************************************************************");
 
 		inventory.add(d);
 	}
-	
+
+	/* this is method where the information that the admin entered about the product is displayed*/
 	private static void printInventory(ArrayList<Product> itemsList) {
 		
 		int productId = 1;
@@ -267,7 +279,8 @@ public class Main {
 			}
 		}			
 	}
-	
+
+	/*this is where the admin can delete product from stock by selecting the ID number of the product*/
 	private static void deletePrduct() {
 		
 		System.out.println("Chose product to delete by Product ID from list below");
@@ -317,7 +330,7 @@ public class Main {
 		int itemQuantity = inventory.get(choice).getQuantity();
 		String productType = inventory.get(choice).getType();
 		Product tempItem = inventory.get(choice);
-		
+
 		if (productType == "shoes") {
 		
 			Shoe tempShoe = new Shoe();
@@ -365,8 +378,7 @@ public class Main {
 
 			basket.add(tempDVD);
 		}
-
-
+		
 		if (itemQuantity > 1) {
 			inventory.get(choice).setQuantity(itemQuantity -1);
 		}
